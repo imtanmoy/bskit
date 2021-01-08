@@ -26,5 +26,15 @@ module.exports = {
         'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
     ],
     plugins: ['react', '@typescript-eslint', 'prettier'],
-    rules: {},
+    rules: {
+        '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        'react/prop-types': 'off',
+        'react/react-in-jsx-scope': 'off',
+        '@typescript-eslint/camelcase': 'off',
+        '@typescript-eslint/ban-ts-ignore': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        // 'react-hooks/rules-of-hooks': 'error',
+        // 'react-hooks/exhaustive-deps': 'warn',
+    },
 };
