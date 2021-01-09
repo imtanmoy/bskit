@@ -14,8 +14,8 @@ const Template: Story = (args) => (
 );
 
 export const Tooltip = Template.bind({});
-Tooltip.args = {
-    title: 'LLLLLL',
-    children: <button>Hover me</button>,
-    placement: 'right',
-};
+// Tooltip.args = {
+//     title: 'LLLLLL',
+//     children: <button>Hover me</button>,
+//     placement: 'right',
+// };

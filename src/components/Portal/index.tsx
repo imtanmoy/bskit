@@ -1,0 +1,40 @@
+import { forwardRef, useRef, useImperativeHandle, useLayoutEffect, ReactNode } from 'react';
+import { createPortal } from 'react-dom';
+
+interface PortalProps {
+    children?: ReactNode;
+    id?: string;
+}
+
+const Portal = forwardRef<unknown, PortalProps>(({ children, id }, ref) => {
+    const containerRef = useRef<HTMLElement>();
+
+    useImperativeHandle(ref, () => ({}));
+
+    const initRef = useRef(false);
+    if (!initRef.current) {
+        const div = document.createElement('div');
+        if (id) {
+            div.id = id;
+        }
+        containerRef.current = div;
+        initRef.current = true;
+    }
+
+    useLayoutEffect(() => {
+        const wrapper = containerRef.current;
+        if (!wrapper || typeof document === 'undefined') {
+            return;
+        }
+        document.body.appendChild(wrapper);
+        return () => {
+            document.body.removeChild(wrapper);
+        };
+    }, []);
+
+    return containerRef.current ? createPortal(children, containerRef.current) : null;
+});
+
+Portal.displayName = 'Portal';
+
+export default Portal;

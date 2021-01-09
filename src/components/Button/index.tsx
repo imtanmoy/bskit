@@ -1,44 +1,65 @@
+import { MouseEvent } from 'react';
 import * as React from 'react';
 import './index.scss';
 
+export type ButtonType =
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | 'info'
+    | 'dark'
+    | 'light'
+    | 'link';
+
+export type ButtonShape = 'circle' | 'round';
+
 export interface ButtonProps {
-    /**
-     * Is this the principal call to action on the page?
-     */
-    primary?: boolean;
-    /**
-     * What background color to use
-     */
-    backgroundColor?: string;
-    /**
-     * How large should the button be?
-     */
+    htmlType?: 'submit' | 'reset' | 'button';
+    type?: ButtonType;
+    // shape?: ButtonShape;
+    block?: boolean;
+    outlined?: boolean;
     size?: 'small' | 'medium' | 'large';
-    /**
-     * Button contents
-     */
     label: string;
-    /**
-     * Optional click handler
-     */
-    onClick?: () => void;
+    onClick?: (e: MouseEvent) => void;
+    disabled?: boolean;
+    style?: React.CSSProperties;
 }
 
 /**
  * Primary UI component for user interaction
  */
-const Button: React.FC<ButtonProps> = ({ primary = false, size = 'medium', backgroundColor, label, ...props }) => {
-    const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+const Button: React.FC<ButtonProps> = ({ label, htmlType, type, size, outlined, block, ...props }) => {
+    const btnType = `btn-${outlined ? `outline-` : ''}${type}`;
+    let btnSize = `btn-`;
+    const btnBlock = block ? `btn-block` : '';
+    switch (size) {
+        case 'small':
+            btnSize += 'sm';
+            break;
+        case 'large':
+            btnSize += 'lg';
+            break;
+        default:
+            btnSize += 'md';
+            break;
+    }
     return (
-        <button
-            type="button"
-            className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-            style={{ backgroundColor }}
-            {...props}
-        >
+        <button type={htmlType} className={['btn', `${btnSize}`, btnType, btnBlock].join(' ')} {...props}>
             {label}
         </button>
     );
+};
+
+Button.displayName = 'Button';
+Button.defaultProps = {
+    htmlType: 'button',
+    type: 'primary',
+    size: 'medium',
+    outlined: false,
+    block: false,
 };
 
 export default Button;

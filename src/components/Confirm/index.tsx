@@ -1,24 +1,40 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import Button from '../Button';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import './index.scss';
 
 interface ConfirmDialogProps {
     title?: string;
     content?: string;
+    okText?: string;
+    cancelText?: string;
     icon?: React.ReactNode;
     close: () => void;
     onOk: () => void;
-    onCancel: () => void;
+    onCancel?: () => void;
 }
 
 const contentPrefixCls = 'react-confirm-alert';
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ title, content, icon, close, onOk, onCancel }) => {
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
+    title,
+    content,
+    icon,
+    close,
+    onOk,
+    onCancel = () => {
+        /*ignore*/
+    },
+    okText = 'Yes',
+    cancelText = 'Cancel',
+}) => {
     const [ref] = useOnClickOutside(close);
 
     const handleNoClick = () => {
-        onCancel();
+        if (onCancel) {
+            onCancel();
+        }
         close();
     };
 
@@ -36,17 +52,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ title, content, icon, clo
                         {title === undefined ? null : <span className={`${contentPrefixCls}-title`}>{title}</span>}
                         <div className={`${contentPrefixCls}-content`}>{content}</div>
                         <div className={`${contentPrefixCls}-btns`}>
-                            <button
-                                type="button"
-                                className="btn btn-outline-light btn-sm"
-                                style={{ color: '#000' }}
-                                onClick={handleNoClick}
-                            >
-                                No
-                            </button>
-                            <button type="button" className="btn btn-primary btn-sm" onClick={handleOkClick}>
-                                Yes
-                            </button>
+                            <Button htmlType="button" type="light" onClick={handleNoClick} label={cancelText} />
+                            <Button htmlType="button" onClick={handleOkClick} label={okText} />
                         </div>
                     </div>
                 </div>
@@ -54,6 +61,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ title, content, icon, clo
         </>
     );
 };
+
+ConfirmDialog.displayName = 'ConfirmDialog';
 
 export type ConfirmProps = Omit<ConfirmDialogProps, 'close'>;
 

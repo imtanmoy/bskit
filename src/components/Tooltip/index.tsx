@@ -33,6 +33,8 @@ const Tooltip = React.forwardRef<unknown, TooltipProps>((props, ref) => {
     );
 });
 
+Tooltip.displayName = 'Tooltip';
+
 Tooltip.defaultProps = {
     placement: 'top',
     // transitionName: 'rc-tooltip-zoom',
@@ -40,7 +42,5 @@ Tooltip.defaultProps = {
     // mouseLeaveDelay: 0.1,
     trigger: 'hover',
 };
-
-Tooltip.displayName = 'Tooltip';
 
 export default Tooltip;

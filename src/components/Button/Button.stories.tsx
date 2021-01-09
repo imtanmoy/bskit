@@ -6,21 +6,13 @@ import Button from './index';
 export default {
     title: 'Example/Button',
     component: Button,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
 } as Meta;
 
 const Template: Story = (args) => <Button label={args.label} {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-    primary: true,
-    label: 'Button',
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
+    type: 'primary',
     label: 'Button',
 };
 
