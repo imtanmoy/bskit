@@ -1,20 +1,22 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import * as React from 'react';
-import Portal from './index';
+import { default as PortalAlias } from './index';
 
 export default {
     title: 'Example/Portal',
-    component: Portal,
+    component: PortalAlias,
 } as Meta;
 
 const Template: Story = () => {
     return (
-        <Portal>
+        <PortalAlias>
             <div style={{ background: 'red', color: 'black', position: 'absolute', height: '100px' }}>
                 This div is inside of a portal
             </div>
-        </Portal>
+        </PortalAlias>
     );
 };
 
-export const Basic = Template.bind({});
+Template.storyName = 'Portal';
+
+export const Portal = Template.bind({});
