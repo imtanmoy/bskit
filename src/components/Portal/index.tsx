@@ -1,12 +1,12 @@
-import { forwardRef, useRef, useImperativeHandle, useLayoutEffect, ReactNode } from 'react';
+import { forwardRef, useRef, useImperativeHandle, useLayoutEffect, ReactNode, ForwardRefExoticComponent } from 'react';
 import { createPortal } from 'react-dom';
 
 interface PortalProps {
-    children?: ReactNode;
+    children: ReactNode;
     id?: string;
 }
 
-const Portal = forwardRef<unknown, PortalProps>(({ children, id }, ref) => {
+const Portal: ForwardRefExoticComponent<PortalProps> = forwardRef<unknown, PortalProps>(({ children, id }, ref) => {
     const containerRef = useRef<HTMLElement>();
 
     useImperativeHandle(ref, () => ({}));
