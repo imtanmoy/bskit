@@ -2,6 +2,8 @@ import * as React from 'react';
 import { css, ClassNames } from '@emotion/react';
 import { getInitials, stringToHslColor } from './utils';
 import useImage from '../../hooks/useImage';
+import ImageLoader from '../ImageLoader';
+import Spinner from '../Spinner';
 
 export type AvatarSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -139,18 +141,31 @@ const Avatar: React.FC<AvatarProps> = ({
                         }}
                     />
                     {src && !error ? (
-                        <img
-                            alt={name.length ? name : ''}
+                        // <img
+                        //     alt={name.length ? name : ''}
+                        //     src={src}
+                        //     onError={onError}
+                        //     css={{
+                        //         width: '100%',
+                        //         height: '100%',
+                        //         objectFit: 'fill',
+                        //         display: 'block',
+                        //         borderRadius: borderRadius,
+                        //         // ...borderCss,
+                        //     }}
+                        // />
+                        <ImageLoader
                             src={src}
+                            alt={name.length ? name : ''}
                             onError={onError}
-                            css={{
+                            className={css({
                                 width: '100%',
                                 height: '100%',
                                 objectFit: 'fill',
                                 display: 'block',
                                 borderRadius: borderRadius,
-                                // ...borderCss,
-                            }}
+                            })}
+                            loadingRender={<Spinner />}
                         />
                     ) : (
                         <div
