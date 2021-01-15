@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { css, ClassNames } from '@emotion/react';
 import { getInitials, stringToHslColor } from './utils';
+import useImage from '../../hooks/useImage';
 
 export type AvatarSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -11,6 +12,7 @@ export interface AvatarProps {
     className?: string;
     shape?: 'cicle' | 'square';
     onClick?: (event: React.SyntheticEvent) => void;
+    border?: boolean;
 }
 
 const sizes = () => ({
@@ -21,7 +23,15 @@ const sizes = () => ({
     xl: css({ width: '8.57rem', height: '8.57rem', fontSize: '3.70rem' }),
 });
 
-const Avatar: React.FC<AvatarProps> = ({ src, size = 'md', className, name = '?', shape = 'circle', onClick }) => {
+const Avatar: React.FC<AvatarProps> = ({
+    src,
+    size = 'md',
+    className,
+    name = '?',
+    shape = 'circle',
+    onClick,
+    border = false,
+}) => {
     const [isHovered, setIsHovered] = React.useState(false);
     const [error, setError] = React.useState(false);
 
@@ -56,14 +66,11 @@ const Avatar: React.FC<AvatarProps> = ({ src, size = 'md', className, name = '?'
 
     const sizeCss =
         typeof size === 'number'
-            ? {
+            ? css({
                   height: size,
                   width: size,
-              }
-            : {
-                  ...sizes()[size],
-              };
-
+              })
+            : sizes()[size];
     const WrapperComponent = (props: { wrapperClassName?: string; className: string; children: React.ReactNode }) => {
         if (props.wrapperClassName) {
             return (
@@ -75,21 +82,47 @@ const Avatar: React.FC<AvatarProps> = ({ src, size = 'md', className, name = '?'
         return <div className={props.className}>{props.children}</div>;
     };
 
+    const borderCss = css(
+        border
+            ? {
+                  backgroundClip: 'padding-box',
+                  border: border ? '2px solid transparent' : '',
+                  borderRadius: borderRadius,
+                  padding: '2px',
+                  '&:before': {
+                      content: "''",
+                      position: 'absolute',
+                      top: '0',
+                      right: '0',
+                      bottom: '0',
+                      left: '0',
+                      zIndex: -1,
+                      margin: '-$border',
+                      borderRadius: 'inherit',
+                      background: 'linear-gradient(to right, red, orange)',
+                  },
+              }
+            : {},
+    );
+
     return (
         <ClassNames>
             {({ css }) => (
                 <WrapperComponent
                     wrapperClassName={className}
-                    className={css({
-                        position: 'relative',
-                        display: 'flex',
-                        alignItems: 'center',
-                        flex: '0 0 auto',
-                        justifyContent: 'center',
-                        borderRadius: borderRadius,
-                        opacity: isHovered ? '0.9' : '0.85',
-                        ...sizeCss,
-                    })}
+                    className={css([
+                        {
+                            position: 'relative',
+                            display: 'flex',
+                            alignItems: 'center',
+                            flex: '0 0 auto',
+                            justifyContent: 'center',
+                            borderRadius: borderRadius,
+                            opacity: isHovered ? '0.9' : '0.85',
+                        },
+                        sizeCss,
+                        borderCss,
+                    ])}
                 >
                     <div
                         onClick={handleOnClick}
@@ -104,19 +137,7 @@ const Avatar: React.FC<AvatarProps> = ({ src, size = 'md', className, name = '?'
                             left: '0',
                             zIndex: 3005,
                         }}
-                    >
-                        <div
-                            css={{
-                                position: 'absolute',
-                                width: '29.8%',
-                                height: '29.8%',
-                                borderRadius: '100%',
-                                bottom: '1.2%',
-                                right: '1.2%',
-                                cursor: 'pointer',
-                            }}
-                        ></div>
-                    </div>
+                    />
                     {src && !error ? (
                         <img
                             alt={name.length ? name : ''}
@@ -125,9 +146,10 @@ const Avatar: React.FC<AvatarProps> = ({ src, size = 'md', className, name = '?'
                             css={{
                                 width: '100%',
                                 height: '100%',
-                                objectFit: 'cover',
+                                objectFit: 'fill',
                                 display: 'block',
                                 borderRadius: borderRadius,
+                                // ...borderCss,
                             }}
                         />
                     ) : (

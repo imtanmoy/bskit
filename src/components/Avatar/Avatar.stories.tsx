@@ -48,3 +48,11 @@ ClassName.args = {
     src: 'https://unsplash.it/200/200?random',
     className: 'avatar-wrapper',
 };
+
+export const Border = Template.bind({});
+Border.args = {
+    src: 'https://unsplash.it/200/200?random',
+    size: 'md',
+    border: true,
+    name: 'Tanmoy Banik',
+};
