@@ -1,40 +1,48 @@
 module.exports = {
-    parser: '@typescript-eslint/parser', // Specifies the ESLint parser
+    parser: '@typescript-eslint/parser',
+    plugins: ['@typescript-eslint', 'react-hooks'],
+    extends: [
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
+        'plugin:prettier/recommended',
+    ],
     parserOptions: {
-        ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
-        sourceType: 'module', // Allows for the use of imports
+        ecmaVersion: 2020,
+        sourceType: 'module',
         ecmaFeatures: {
-            jsx: true, // Allows for the parsing of JSX
+            jsx: true,
         },
     },
-    env: {
-        jest: true,
-        browser: true,
-        node: true,
-        es6: true,
+    rules: {
+        curly: 'error',
+        '@typescript-eslint/indent': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/ban-ts-comment': 'warn',
+        '@typescript-eslint/ban-types': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-object-literal-type-assertion': 'off',
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn',
+        'react/display-name': 'error',
+        'react/prop-types': 'off',
+        'no-console': ['error', { allow: ['warn', 'error'] }],
     },
+    overrides: [
+        {
+            files: ['*.test.ts', '*.test.tsx'],
+            rules: {
+                // Allow testing runtime errors to suppress TS errors
+                '@typescript-eslint/ban-ts-comment': 'off',
+            },
+        },
+    ],
     settings: {
         react: {
-            version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
+            pragma: 'React',
+            version: 'detect',
         },
-    },
-    extends: [
-        'eslint:recommended', // recommended ESLint rules
-        'plugin:react/recommended', // Uses the recommended rules from @eslint-plugin-react
-        'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-        'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-        'plugin:prettier/recommended', // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
-    ],
-    plugins: ['react', '@typescript-eslint', 'prettier'],
-    rules: {
-        '@typescript-eslint/ban-ts-comment': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        'react/prop-types': 'off',
-        'react/react-in-jsx-scope': 'off',
-        '@typescript-eslint/camelcase': 'off',
-        '@typescript-eslint/ban-ts-ignore': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
-        // 'react-hooks/rules-of-hooks': 'error',
-        // 'react-hooks/exhaustive-deps': 'warn',
     },
 };

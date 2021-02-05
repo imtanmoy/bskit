@@ -49,11 +49,26 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                 <div ref={ref} className={`${contentPrefixCls}-wrapper`}>
                     <div className={`${contentPrefixCls}-body`}>
                         {icon}
-                        {title === undefined ? null : <span className={`${contentPrefixCls}-title`}>{title}</span>}
-                        <div className={`${contentPrefixCls}-content`}>{content}</div>
+                        {title === undefined ? null : (
+                            <span className={`${contentPrefixCls}-title`}>
+                                {title}
+                            </span>
+                        )}
+                        <div className={`${contentPrefixCls}-content`}>
+                            {content}
+                        </div>
                         <div className={`${contentPrefixCls}-btns`}>
-                            <Button htmlType="button" type="light" onClick={handleNoClick} label={cancelText} />
-                            <Button htmlType="button" onClick={handleOkClick} label={okText} />
+                            <Button
+                                htmlType="button"
+                                type="light"
+                                onClick={handleNoClick}
+                                label={cancelText}
+                            />
+                            <Button
+                                htmlType="button"
+                                onClick={handleOkClick}
+                                label={okText}
+                            />
                         </div>
                     </div>
                 </div>
@@ -80,7 +95,10 @@ const confirm = (props: ConfirmProps): void => {
 
     function render() {
         setTimeout(() => {
-            ReactDOM.render(<ConfirmDialog {...props} close={close} />, divTarget);
+            ReactDOM.render(
+                <ConfirmDialog {...props} close={close} />,
+                divTarget,
+            );
         });
     }
     render();

@@ -42,7 +42,7 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
             });
             onChange(files[0]);
         }
-    }, [files, setImg]);
+    }, [files, onChange, setImg]);
 
     const handleAvatarChangerClick = (): void => {
         openFileSelector();
@@ -119,7 +119,13 @@ const AvatarSelector: React.FC<AvatarSelectorProps> = ({
 
     return (
         <div css={css([sizeCss, css({ position: 'relative' })])}>
-            <Avatar size={size} src={img || src} name={name} onClick={handleAvatarChangerClick} {...rest} />
+            <Avatar
+                size={size}
+                src={img || src}
+                name={name}
+                onClick={handleAvatarChangerClick}
+                {...rest}
+            />
             {renderSelector()}
             {renderRemove()}
         </div>

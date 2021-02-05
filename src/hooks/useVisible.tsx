@@ -1,4 +1,12 @@
-import { useState, useRef, useEffect, useCallback, SetStateAction, Dispatch, RefObject } from 'react';
+import {
+    useState,
+    useRef,
+    useEffect,
+    useCallback,
+    SetStateAction,
+    Dispatch,
+    RefObject,
+} from 'react';
 
 const useVisible: (
     initialIsVisible: boolean,
@@ -16,20 +24,17 @@ const useVisible: (
         }
     }, []);
 
-    const handleEvent = useCallback(
-        (event: any) => {
-            if (ref && event) {
-                const { current } = ref;
-                const { target } = event;
-                if (current && target) {
-                    if (!current.contains(event.target)) {
-                        setIsVisible(false);
-                    }
+    const handleEvent = useCallback((event: any) => {
+        if (ref && event) {
+            const { current } = ref;
+            const { target } = event;
+            if (current && target) {
+                if (!current.contains(event.target)) {
+                    setIsVisible(false);
                 }
             }
-        },
-        [ref.current],
-    );
+        }
+    }, []);
 
     useEffect(() => {
         document.addEventListener('click', handleEvent, true);
@@ -38,7 +43,7 @@ const useVisible: (
             document.removeEventListener('click', handleEvent, true);
             document.removeEventListener('keyup', escapeListener, true);
         };
-    }, []);
+    }, [escapeListener, handleEvent]);
 
     return { ref, isVisible, setIsVisible };
 };

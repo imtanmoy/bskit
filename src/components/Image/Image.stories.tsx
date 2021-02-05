@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import ImageLoader from './index';
+import Image from './index';
 import Spinner from '../Spinner';
 
 export default {
-    title: 'Example/ImageLoader',
-    component: ImageLoader,
+    title: 'Example/Image',
+    component: Image,
 } as Meta;
 
-const Template: Story = (args) => <ImageLoader src={args.src} {...args} />;
+const Template: Story = (args) => <Image src={args.src} {...args} />;
 
 const ErrorRender = () => {
     return (

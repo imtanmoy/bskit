@@ -1,18 +1,19 @@
 import * as React from 'react';
+import styled from '@emotion/styled';
+
+const Div = styled.div`
+    display: flex;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    color: #6b00cb;
+`;
 
 const CameraIconSvg: React.FC = () => {
     return (
-        <div
-            css={{
-                display: 'flex',
-                textAlign: 'center',
-                width: '100%',
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                color: '#6b00cb',
-            }}
-        >
+        <Div>
             <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -28,7 +29,7 @@ const CameraIconSvg: React.FC = () => {
                     stroke="none"
                 />
             </svg>
-        </div>
+        </Div>
     );
 };
 

@@ -3,11 +3,14 @@ import { useRef, useEffect, useCallback, RefObject } from 'react';
 const useOnClickOutside: (handler: () => void) => [any] = (handler) => {
     const ref: RefObject<HTMLElement> = useRef<HTMLElement>(null);
 
-    const escapeListener = useCallback((e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-            handler();
-        }
-    }, []);
+    const escapeListener = useCallback(
+        (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                handler();
+            }
+        },
+        [handler],
+    );
 
     const handleEvent = useCallback(
         (event: any) => {
@@ -21,7 +24,7 @@ const useOnClickOutside: (handler: () => void) => [any] = (handler) => {
                 }
             }
         },
-        [ref.current],
+        [handler],
     );
 
     useEffect(() => {
@@ -31,7 +34,7 @@ const useOnClickOutside: (handler: () => void) => [any] = (handler) => {
             document.removeEventListener('click', handleEvent, true);
             document.removeEventListener('keyup', escapeListener, true);
         };
-    }, []);
+    }, [escapeListener, handleEvent]);
 
     return [ref];
 };

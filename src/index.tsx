@@ -1,4 +1,5 @@
+import Avatar from './components/Avatar';
 import Button from './components/Button';
-import Tooltip from './components/Tooltip';
+export * from './components/Image';
 
-export default { Button, Tooltip };
+export { Avatar, Button };
