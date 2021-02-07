@@ -1,6 +1,6 @@
 import * as React from 'react';
 import useImage from '../../hooks/useImage';
-import Spinner from '../Spinner';
+import Skeleton from '../Skeleton';
 
 export interface ImageProps {
     src: string;
@@ -57,7 +57,7 @@ const Image: React.FC<ImageProps> = React.memo(
         if (loadingRender) {
             return <>{loadingRender}</>;
         }
-        return <Spinner />;
+        return <Skeleton shape="rectangular" />;
     },
 );
 

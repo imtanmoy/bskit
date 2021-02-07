@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Image from './index';
-import Spinner from '../Spinner';
 
 export default {
     title: 'Example/Image',
@@ -26,5 +25,5 @@ Basic.args = {
     width: '500px',
     // eslint-disable-next-line react/display-name
     errorRender: <ErrorRender />,
-    loadingRender: <Spinner />,
+    // loadingRender: <Spinner />,
 };

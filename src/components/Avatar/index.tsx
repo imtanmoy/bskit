@@ -3,6 +3,7 @@ import { css, ClassNames } from '@emotion/react';
 import { AvatarSize } from '../../utils/size';
 import { getInitials, stringToHslColor } from './utils';
 import Image from '../Image';
+import Skeleton from '../Skeleton';
 
 export type AvatarSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -98,6 +99,13 @@ const Avatar: React.FC<AvatarProps> = React.memo(
                     src={src!}
                     alt={alt ? alt : 'user-avatar'}
                     style={{ borderRadius: borderRadius }}
+                    loadingRender={
+                        <Skeleton
+                            shape={
+                                shape === 'circle' ? 'circular' : 'rectangular'
+                            }
+                        />
+                    }
                 />
             );
         };
