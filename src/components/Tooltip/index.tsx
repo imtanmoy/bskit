@@ -13,7 +13,8 @@ export type TooltipPlacement =
     | 'bottomLeft'
     | 'bottomRight';
 
-export interface TooltipProps extends Partial<Omit<RcTooltipProps, 'children'>> {
+export interface TooltipProps
+    extends Partial<Omit<RcTooltipProps, 'children'>> {
     title: React.ReactNode;
     placement?: TooltipPlacement;
     trigger?: 'hover' | 'click';
@@ -23,11 +24,20 @@ export interface TooltipProps extends Partial<Omit<RcTooltipProps, 'children'>> 
 const Tooltip = React.forwardRef<unknown, TooltipProps>((props, ref) => {
     const { children, title, placement } = props;
 
-    const child = React.isValidElement(children) ? children : <span>{children}</span>;
+    const child = React.isValidElement(children) ? (
+        children
+    ) : (
+        <span>{children}</span>
+    );
     const childProps = child.props;
 
     return (
-        <RcTooltip {...props} placement={placement} overlay={<span>{title}</span>} ref={ref}>
+        <RcTooltip
+            {...props}
+            placement={placement}
+            overlay={<span>{title}</span>}
+            ref={ref}
+        >
             {React.cloneElement(child, { className: childProps.className })}
         </RcTooltip>
     );

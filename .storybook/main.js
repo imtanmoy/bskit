@@ -5,7 +5,11 @@ module.exports = {
         '../src/**/*.stories.mdx',
         '../src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
-    addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/preset-scss'],
+    addons: [
+        '@storybook/addon-links',
+        '@storybook/addon-essentials',
+        '@storybook/preset-scss',
+    ],
     webpackFinal: (config) => {
         return config;
     },
@@ -13,8 +17,11 @@ module.exports = {
         const { plugins, presets } = options;
         return {
             ...options,
-            plugins: [...plugins, '@emotion/babel-plugin'],
-            presets: [...presets, '@emotion/babel-preset-css-prop'],
+            plugins: [...plugins, require.resolve('@emotion/babel-plugin')],
+            presets: [
+                ...presets,
+                require.resolve('@emotion/babel-preset-css-prop'),
+            ],
         };
     },
 };

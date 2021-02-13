@@ -51,8 +51,8 @@ export default {
         }),
         babel({
             exclude: 'node_modules/**',
-            babelHelpers: 'bundled',
-            extensions: extensions,
+            // babelHelpers: 'bundled',
+            // extensions: extensions,
             // include: ['src/**/*'],
         }),
         scss({

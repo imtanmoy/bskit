@@ -8,7 +8,9 @@ export default {
     component: AvatarSelector,
 } as Meta;
 
-const Template: Story = (args) => <AvatarSelector src={args.src} onChange={args.onChange} {...args} />;
+const Template: Story = (args) => (
+    <AvatarSelector src={args.src} onChange={args.onChange} {...args} />
+);
 
 export const Basic = Template.bind({});
 Basic.args = {
