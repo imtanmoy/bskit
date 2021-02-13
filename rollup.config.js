@@ -51,9 +51,17 @@ export default {
         }),
         babel({
             exclude: 'node_modules/**',
-            babelHelpers: 'bundled',
-            extensions: extensions,
-            // include: ['src/**/*'],
+            plugins: [
+                '@emotion/babel-plugin',
+                ['@babel/plugin-proposal-class-properties', { loose: true }],
+                '@babel/plugin-transform-runtime',
+            ],
+            presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+                '@emotion/babel-preset-css-prop',
+            ],
         }),
         scss({
             processor: (css) =>
