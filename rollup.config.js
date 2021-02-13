@@ -52,7 +52,7 @@ export default {
         babel({
             exclude: 'node_modules/**',
             plugins: [
-                '@emotion/babel-plugin',
+                '@emotion',
                 ['@babel/plugin-proposal-class-properties', { loose: true }],
                 '@babel/plugin-transform-runtime',
             ],

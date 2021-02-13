@@ -7,14 +7,16 @@ export interface PopoverProps {
     content?: React.ReactNode | RenderFunction;
 }
 
-const Popover = React.forwardRef<unknown, PopoverProps>(({ title, content }, ref) => {
-    return (
-        <div ref={ref as any}>
-            <h1>{title}</h1>
-            <div>{content}</div>
-        </div>
-    );
-});
+const Popover = React.forwardRef<unknown, PopoverProps>(
+    ({ title, content }, ref) => {
+        return (
+            <div ref={ref as any}>
+                <h1>{title}</h1>
+                <div>{content}</div>
+            </div>
+        );
+    },
+);
 
 Popover.displayName = 'Popover';
 

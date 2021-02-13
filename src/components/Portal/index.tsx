@@ -1,12 +1,23 @@
-import { forwardRef, useRef, useImperativeHandle, useLayoutEffect, ReactNode, ForwardRefExoticComponent } from 'react';
+import {
+    forwardRef,
+    useRef,
+    useImperativeHandle,
+    useLayoutEffect,
+    ReactNode,
+    ForwardRefExoticComponent,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 interface PortalProps {
     children: ReactNode;
     id?: string;
+    className?: string;
 }
 
-const Portal: ForwardRefExoticComponent<PortalProps> = forwardRef<unknown, PortalProps>(({ children, id }, ref) => {
+const Portal: ForwardRefExoticComponent<PortalProps> = forwardRef<
+    unknown,
+    PortalProps
+>(({ children, id, className }, ref) => {
     const containerRef = useRef<HTMLElement>();
 
     useImperativeHandle(ref, () => ({}));
@@ -16,6 +27,9 @@ const Portal: ForwardRefExoticComponent<PortalProps> = forwardRef<unknown, Porta
         const div = document.createElement('div');
         if (id) {
             div.id = id;
+        }
+        if (className) {
+            div.className = className;
         }
         containerRef.current = div;
         initRef.current = true;
@@ -32,7 +46,9 @@ const Portal: ForwardRefExoticComponent<PortalProps> = forwardRef<unknown, Porta
         };
     }, []);
 
-    return containerRef.current ? createPortal(children, containerRef.current) : null;
+    return containerRef.current
+        ? createPortal(children, containerRef.current)
+        : null;
 });
 
 Portal.displayName = 'Portal';
